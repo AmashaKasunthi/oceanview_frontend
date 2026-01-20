@@ -1,0 +1,36 @@
+import axios from "axios";
+import {useEffect,useState} from "react";
+
+export default function Rooms(){
+ const [rooms,setRooms]=useState([]);
+ const [name,setName]=useState("");
+ const [price,setPrice]=useState("");
+ const [image,setImage]=useState("");
+
+ useEffect(()=>load(),[]);
+
+ const load=()=>axios.get("http://localhost:8080/api/rooms").then(r=>setRooms(r.data));
+
+ const add=()=>{
+  axios.post("http://localhost:8080/api/rooms",{name,price,image}).then(load);
+ }
+
+ return(
+  <div>
+   <h2 className="text-xl mb-4">Room Management</h2>
+   <input placeholder="Room name" onChange={e=>setName(e.target.value)}/>
+   <input placeholder="Price" onChange={e=>setPrice(e.target.value)}/>
+   <input placeholder="Image URL" onChange={e=>setImage(e.target.value)}/>
+   <button onClick={add}>Add</button>
+
+   <div className="grid grid-cols-3 mt-4">
+    {rooms.map(r=>(
+      <div key={r.id}>
+        <img src={r.image} className="h-32"/>
+        <p>{r.name} - Rs.{r.price}</p>
+      </div>
+    ))}
+   </div>
+  </div>
+ )
+}
