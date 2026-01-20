@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/*import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -32,4 +32,14 @@ function App() {
   )
 }
 
-export default App
+export default App*/
+
+import {useState} from "react";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+export default function App(){
+ const [login,setLogin]=useState(false);
+ return login ? <Dashboard logout={()=>setLogin(false)}/> : <Login login={()=>setLogin(true)}/>
+}
+
