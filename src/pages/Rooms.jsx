@@ -1,4 +1,4 @@
-import axios from "axios";
+/*import axios from "axios";
 import {useEffect,useState} from "react";
 
 export default function Rooms(){
@@ -33,4 +33,41 @@ export default function Rooms(){
    </div>
   </div>
  )
+}*/
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function Rooms() {
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    // ✅ Correct way: define async function inside useEffect
+    async function fetchRooms() {
+      try {
+        const res = await axios.get("http://localhost:8080/api/rooms");
+        setRooms(res.data);
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    }
+    fetchRooms();
+  }, []); // empty dependency array → runs once on mount
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-5">Rooms</h2>
+      {rooms.length === 0 ? (
+        <p>No rooms available.</p>
+      ) : (
+        <ul>
+          {rooms.map((room) => (
+            <li key={room.id}>
+              {room.number} - {room.type} - ${room.price}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
+

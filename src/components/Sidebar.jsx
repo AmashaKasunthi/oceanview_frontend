@@ -1,13 +1,45 @@
-export default function Sidebar({setPage,logout}){
- return(
-  <div className="w-64 h-screen bg-gray-900 text-white p-6">
-    <h2 className="text-xl mb-6">Ocean View Admin</h2>
-    <button onClick={()=>setPage("rooms")} className="block mb-3">Rooms</button>
-    <button onClick={()=>setPage("reservation")} className="block mb-3">New Reservation</button>
-    <button onClick={()=>setPage("manage")} className="block mb-3">Manage Reservations</button>
-    <button onClick={()=>setPage("reports")} className="block mb-3">Reports</button>
-    <button onClick={()=>setPage("help")} className="block mb-3">Help</button>
-    <button onClick={logout} className="mt-10 bg-red-600 px-3 py-1">Exit</button>
-  </div>
- )
+import React from "react";
+
+export default function Sidebar({ setPage, logout }) {
+  return (
+    <div className="w-64 bg-blue-700 text-white min-h-screen p-5 flex flex-col">
+      <h2 className="text-2xl font-bold mb-10">Admin Panel</h2>
+      <button
+        className="mb-3 text-left hover:bg-blue-800 p-2 rounded"
+        onClick={() => setPage("rooms")}
+      >
+        Rooms
+      </button>
+      <button
+        className="mb-3 text-left hover:bg-blue-800 p-2 rounded"
+        onClick={() => setPage("reservation")}
+      >
+        Reservation
+      </button>
+      <button
+        className="mb-3 text-left hover:bg-blue-800 p-2 rounded"
+        onClick={() => setPage("manage")}
+      >
+        Manage Reservations
+      </button>
+      <button
+        className="mb-3 text-left hover:bg-blue-800 p-2 rounded"
+        onClick={() => setPage("reports")}
+      >
+        Reports
+      </button>
+      <button
+        className="mb-3 text-left hover:bg-blue-800 p-2 rounded"
+        onClick={() => setPage("help")}
+      >
+        Help
+      </button>
+      <button
+        className="mt-auto bg-red-600 hover:bg-red-700 p-2 rounded"
+        onClick={logout}
+      >
+        Logout
+      </button>
+    </div>
+  );
 }
