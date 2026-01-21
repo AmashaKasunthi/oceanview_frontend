@@ -71,7 +71,6 @@ export default function Rooms() {
   );
 }
 */
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Plus, Edit2, Trash2, X, Home, Image } from "lucide-react";
@@ -85,7 +84,8 @@ const Room = () => {
     id: null,
     roomType: "",
     price: "",
-    totalRooms: ""
+    totalRooms: "",
+    description: ""
   });
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -155,6 +155,11 @@ const Room = () => {
       return;
     }
 
+    if (!form.description.trim()) {
+      alert("Please enter room description");
+      return;
+    }
+
     if (!isEditing && !image) {
       alert("Please upload a room image");
       return;
@@ -167,6 +172,7 @@ const Room = () => {
       data.append("roomType", form.roomType.trim());
       data.append("price", parseFloat(form.price));
       data.append("totalRooms", parseInt(form.totalRooms));
+      data.append("description", form.description.trim());
       
       if (image) {
         data.append("image", image);
@@ -223,7 +229,8 @@ const Room = () => {
       id: room.id,
       roomType: room.roomType,
       price: room.price.toString(),
-      totalRooms: room.totalRooms.toString()
+      totalRooms: room.totalRooms.toString(),
+      description: room.description || ""
     });
     setImagePreview(`${IMAGE_URL}${room.image}`);
     setImage(null);
@@ -236,7 +243,8 @@ const Room = () => {
       id: null,
       roomType: "",
       price: "",
-      totalRooms: ""
+      totalRooms: "",
+      description: ""
     });
     setImage(null);
     setImagePreview(null);
@@ -306,11 +314,15 @@ const Room = () => {
                 <div className="p-5">
                   <h3 className="text-xl font-bold text-gray-800 mb-3">{room.roomType}</h3>
                   
+                  {room.description && (
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{room.description}</p>
+                  )}
+                  
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Price per night:</span>
                       <span className="text-2xl font-bold text-indigo-600">
-                        Rs {parseFloat(room.price).toFixed(2)}
+                        Rs. {parseFloat(room.price).toFixed(2)}
                       </span>
                     </div>
                     
@@ -424,7 +436,7 @@ const Room = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Price per Night (Rs) *
+                      Price per Night (Rs.) *
                     </label>
                     <input
                       type="number"
@@ -452,6 +464,21 @@ const Room = () => {
                       disabled={loading}
                       min="1"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description *
+                    </label>
+                    <textarea
+                      name="description"
+                      placeholder="Enter room description, amenities, features..."
+                      value={form.description}
+                      onChange={handleChange}
+                      disabled={loading}
+                      rows="4"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100 resize-none"
                     />
                   </div>
 
