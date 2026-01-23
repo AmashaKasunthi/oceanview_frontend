@@ -68,13 +68,7 @@ export default function Sidebar({ setPage, logout }) {
             <span>Help</span>
           </button>
 
-          <button
-            className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
-            onClick={logout}
-          >
-            <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            <span>Logout</span>
-          </button>
+          
         </div>
       </nav>
     </div>

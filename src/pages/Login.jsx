@@ -95,37 +95,47 @@ export default function Login({ setLogin }) {
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
-    if (!username || !password || (isRegister && !secretKey)) {
-      alert("Please fill all required fields");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const url = isRegister
-        ? "http://localhost:8080/api/admin/register"
-        : "http://localhost:8080/api/admin/login";
-
-      const payload = isRegister
-        ? { username, password, secretKey }
-        : { username, password };
-
-      const res = await axios.post(url, payload);
-
+  if (!username || !password || (isRegister && !secretKey)) {
+    alert("Please fill all required fields");
+    return;
+  }
+  setLoading(true);
+  try {
+    const url = isRegister
+      ? "http://localhost:8080/api/admin/register"
+      : "http://localhost:8080/api/admin/login";
+    const payload = isRegister
+      ? { username, password, secretKey }
+      : { username, password };
+    const res = await axios.post(url, payload);
+    
+    if (isRegister) {
+      // Handle registration
       if (res.data === "SUCCESS") {
-        alert(isRegister ? "Admin registered successfully!" : "Login successful");
-        if (!isRegister) setLogin(true);
+        alert("Admin registered successfully!");
         setIsRegister(false);
       } else {
         alert(res.data);
       }
-    } catch (err) {
-      alert("Server error. Check backend.");
-    } finally {
-      setLoading(false);
+    } else {
+      // Handle login - backend returns JWT token directly
+      if (res.data && res.data !== "FAILED") {
+        // ✅ Store JWT token
+        localStorage.setItem("token", res.data);
+        // ✅ Store admin username
+        localStorage.setItem("adminUsername", username);
+        alert("Login Successful");
+        setLogin(true); // This navigates to admin panel
+      } else {
+        alert("Invalid credentials");
+      }
     }
-  };
+  } catch (err) {
+    alert("Server error. Check backend.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div
@@ -195,3 +205,60 @@ export default function Login({ setLogin }) {
   );
 }
 
+/*import { useState } from "react";
+import axios from "axios";
+
+export default function AdminLogin() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const login = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/admin/login",
+        { username, password }
+      );
+
+      // ✅ Store JWT
+      localStorage.setItem("token", res.data);
+
+      alert("Login Successful");
+
+    } catch (err) {
+      setError("Invalid username or password");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-blue-400">
+      <form onSubmit={login} className="bg-white p-8 rounded-xl w-96">
+        <h2 className="text-xl font-bold text-center mb-6">Admin Login</h2>
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+        <input
+          className="w-full border p-2 mb-4"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <input
+          type="password"
+          className="w-full border p-2 mb-6"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button className="w-full bg-blue-600 text-white p-2 rounded">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
+*/
