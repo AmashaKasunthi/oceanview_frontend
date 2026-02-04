@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 import { Hotel, Calendar, ClipboardList, FileText, HelpCircle, LogOut } from "lucide-react";
 
 export default function Sidebar({ setPage, logout }) {
@@ -28,6 +30,7 @@ export default function Sidebar({ setPage, logout }) {
       {/* Navigation Section */}
       <nav className="flex-1 p-4">
         <div className="space-y-2">
+          <NavLink to="/rooms">
           <button
             className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
             onClick={() => setPage("rooms")}
@@ -35,7 +38,9 @@ export default function Sidebar({ setPage, logout }) {
             <Hotel className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span>Rooms</span>
           </button>
+          </NavLink>
 
+          <NavLink to="/reservation">
           <button
             className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
             onClick={() => setPage("reservation")}
@@ -43,7 +48,9 @@ export default function Sidebar({ setPage, logout }) {
             <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span>Reservation</span>
           </button>
+          </NavLink>
 
+          <NavLink to="/manage">
           <button
             className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
             onClick={() => setPage("manage")}
@@ -51,7 +58,9 @@ export default function Sidebar({ setPage, logout }) {
             <ClipboardList className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span>Manage Reservations</span>
           </button>
+          </NavLink>
 
+          <NavLink to ="/reports">
           <button
             className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
             onClick={() => setPage("reports")}
@@ -59,7 +68,9 @@ export default function Sidebar({ setPage, logout }) {
             <FileText className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span>Reports</span>
           </button>
+          </NavLink>
 
+            <NavLink to ="/help">
           <button
             className="w-full flex items-center gap-3 text-left hover:bg-blue-700/50 p-3 rounded-lg transition-all duration-200 group"
             onClick={() => setPage("help")}
@@ -67,6 +78,7 @@ export default function Sidebar({ setPage, logout }) {
             <HelpCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span>Help</span>
           </button>
+          </NavLink>
 
           
         </div>

@@ -75,6 +75,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Plus, Edit2, Trash2, X, Home, Image } from "lucide-react";
 
+
 const API_URL = "http://localhost:8080/api/rooms";
 const IMAGE_URL = "http://localhost:8080/uploads/";
 

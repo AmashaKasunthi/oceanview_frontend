@@ -23,12 +23,14 @@ export default function Dashboard({ logout }) {
   );
 }*/
 import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import Rooms from "./Rooms";
-import Reservation from "./Reservation";
-import Manage from "./ManageReservations";
-import Reports from "./Reports";
-import Help from "./Help";
+import Rooms from "../pages/Rooms";
+import Reservation from "../pages/Reservation";
+import Manage from "../pages/ManageReservations";
+import Reports from "../pages/Reports";
+import Help from "../pages/Help";
+
 
 export default function Dashboard({ logout }) {
   const [page, setPage] = useState("rooms");
@@ -77,6 +79,7 @@ export default function Dashboard({ logout }) {
         {page === "manage" && <Manage />}
         {page === "reports" && <Reports />}
         {page === "help" && <Help />}
+           <Outlet />
       </div>
     </div>
   );
