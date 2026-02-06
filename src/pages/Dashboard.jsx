@@ -6,7 +6,7 @@ export default function Dashboard({ logout }) {
   const [page, setPage] = useState("rooms");
   const [username, setUsername] = useState("");
 
-  const navigate = useNavigate(); // ✅ ADD THIS
+  const navigate = useNavigate(); 
 
   // Get admin username on dashboard load
   useEffect(() => {
@@ -46,8 +46,6 @@ export default function Dashboard({ logout }) {
             Logout
           </button>
         </div>
-
-        {/* Page Content */}
         <Outlet />
       </div>
     </div>
