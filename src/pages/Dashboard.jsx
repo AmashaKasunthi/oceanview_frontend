@@ -1,40 +1,12 @@
-/*import { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Rooms from "./Rooms";
-import Reservation from "./Reservation";
-import Manage from "./ManageReservations";
-import Reports from "./Reports";
-import Help from "./Help";
-
-export default function Dashboard({ logout }) {
-  const [page, setPage] = useState("rooms");
-
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar setPage={setPage} logout={logout} />
-      <div className="flex-1 p-10">
-        {page === "rooms" && <Rooms />}
-        {page === "reservation" && <Reservation />}
-        {page === "manage" && <Manage />}
-        {page === "reports" && <Reports />}
-        {page === "help" && <Help />}
-      </div>
-    </div>
-  );
-}*/
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import Rooms from "../pages/Rooms";
-import Reservation from "../pages/Reservation";
-import Manage from "../pages/ManageReservations";
-import Reports from "../pages/Reports";
-import Help from "../pages/Help";
-
 
 export default function Dashboard({ logout }) {
   const [page, setPage] = useState("rooms");
   const [username, setUsername] = useState("");
+
+  const navigate = useNavigate(); // ✅ ADD THIS
 
   // Get admin username on dashboard load
   useEffect(() => {
@@ -45,9 +17,11 @@ export default function Dashboard({ logout }) {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("adminUsername");
-    logout();
-  };
+  localStorage.removeItem("adminUsername");
++ logout();  //updates isAdminLoggedIn = false
+  navigate("/admin-login", { replace: true });
+};
+
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -73,13 +47,8 @@ export default function Dashboard({ logout }) {
           </button>
         </div>
 
-        {/* Pages */}
-        {page === "rooms" && <Rooms />}
-        {page === "reservation" && <Reservation />}
-        {page === "manage" && <Manage />}
-        {page === "reports" && <Reports />}
-        {page === "help" && <Help />}
-           <Outlet />
+        {/* Page Content */}
+        <Outlet />
       </div>
     </div>
   );
