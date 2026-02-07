@@ -11,7 +11,7 @@ import Help from "./pages/Help";
 import CustomerHome from "./pages/CustomerHome";
 import CustomerLogin from "./pages/CustomerLogin";
 import CustomerDashboard from "./pages/CustomerDashboard";
-
+import Customerviewrooms from "./pages/Customerviewrooms";
 
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
@@ -23,6 +23,8 @@ function App() {
         <Route path="/customer" element={<CustomerHome />} />
         <Route path="/customer/login" element={<CustomerLogin />} />
         <Route path="/customer/cusdashboard" element={<CustomerDashboard />} />
+        <Route path="/customer/cusviewrooms" element={<Customerviewrooms />} />
+        
 
         {/* ===== ADMIN SIDE ===== */}
         {!isAdminLoggedIn ? (
@@ -38,6 +40,7 @@ function App() {
             path="/"
             element={<Dashboard logout={() => setIsAdminLoggedIn(false)} />}
           >
+            {/* Nested routes under Dashboard */}
             <Route index element={<Navigate to="/rooms" />} />
             <Route path="rooms" element={<Rooms />} />
             <Route path="reservation" element={<Reservation />} />
