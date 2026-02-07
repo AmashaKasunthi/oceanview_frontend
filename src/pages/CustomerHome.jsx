@@ -33,7 +33,7 @@ export default function CustomerHome() {
           </div>
           <div className="flex items-center gap-6">
             <Link
-              to="/customer/rooms"
+              to="/customer/cusviewrooms"
               className={`font-medium transition ${
                 scrolled
                   ? "text-gray-700 hover:text-cyan-600"
@@ -73,7 +73,7 @@ export default function CustomerHome() {
           </p>
           <div className="flex gap-4 justify-center animate-fade-in-delay-2">
             <Link
-              to="/customer/rooms"
+              to="/customer/cusviewrooms"
               className="px-8 py-4 bg-cyan-500 text-white rounded-full text-lg font-semibold hover:bg-cyan-600 hover:scale-105 transition-all shadow-xl"
             >
               Explore Rooms
@@ -221,7 +221,7 @@ export default function CustomerHome() {
                   Wake up to panoramic ocean vistas
                 </p>
                 <Link
-                  to="/customer/rooms"
+                  to="/customer/cusviewrooms"
                   className="text-cyan-300 font-semibold hover:text-cyan-200 transition inline-flex items-center gap-2"
                 >
                   View Details
