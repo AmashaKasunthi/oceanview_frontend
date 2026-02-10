@@ -312,42 +312,41 @@ export default function CustomerDashboard() {
       console.error("Reservation failed", err);
       alert(err.response?.data || "Reservation failed");
     }
+  };
 
-    // ================= EDIT RESERVATION =================
-const openEditModal = (reservation) => {
-  setEditingReservation(reservation);
-  setFormData({
-    address: reservation.address || "",
-    contact: reservation.contact || "",
-    checkIn: reservation.checkIn || "",
-    checkOut: reservation.checkOut || "",
-  });
-};
+  // ================= EDIT RESERVATION =================
+  const openEditModal = (reservation) => {
+    setEditingReservation(reservation);
+    setFormData({
+      address: reservation.address || "",
+      contact: reservation.contact || "",
+      checkIn: reservation.checkIn || "",
+      checkOut: reservation.checkOut || "",
+    });
+  };
 
-const updateReservation = async (e) => {
-  e.preventDefault();
+  const updateReservation = async (e) => {
+    e.preventDefault();
 
-  try {
-    await axios.put(
-      `http://localhost:8080/api/reservations/${editingReservation.id}`,
-      {
-        ...editingReservation,
-        address: formData.address,
-        contact: formData.contact,
-        checkIn: formData.checkIn,
-        checkOut: formData.checkOut,
-      }
-    );
+    try {
+      await axios.put(
+        `http://localhost:8080/api/reservations/${editingReservation.id}`,
+        {
+          ...editingReservation,
+          address: formData.address,
+          contact: formData.contact,
+          checkIn: formData.checkIn,
+          checkOut: formData.checkOut,
+        }
+      );
 
-    alert("Reservation updated successfully!");
-    setEditingReservation(null);
-    fetchReservations();
-  } catch (err) {
-    console.error(err);
-    alert("Update failed");
-  }
-};
-
+      alert("Reservation updated successfully!");
+      setEditingReservation(null);
+      fetchReservations();
+    } catch (err) {
+      console.error(err);
+      alert("Update failed");
+    }
   };
 
   // ================= LOGOUT =================
@@ -418,13 +417,13 @@ const updateReservation = async (e) => {
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nights</th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                    
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {reservations.length === 0 ? (
                     <tr>
-                      <td colSpan="6" className="px-6 py-12 text-center">
+                      <td colSpan="7" className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center justify-center">
                           <svg className="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -454,6 +453,14 @@ const updateReservation = async (e) => {
                           >
                             {r.status}
                           </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm">
+                          <button
+                            onClick={() => openEditModal(r)}
+                            className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                          >
+                            Edit
+                          </button>
                         </td>
                       </tr>
                     ))
@@ -538,6 +545,93 @@ const updateReservation = async (e) => {
           ))}
         </div>
       </div>
+
+      {/* ================= EDIT MODAL ================= */}
+      {editingReservation && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 backdrop-blur-sm" style={{ zIndex: 9999 }}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+            <div className="bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-5">
+              <h3 className="text-2xl font-bold text-white">Edit Reservation</h3>
+            </div>
+
+            <form onSubmit={updateReservation} className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Address
+                </label>
+                <input
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Enter your address"
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all duration-200"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Contact Number
+                </label>
+                <input
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleChange}
+                  placeholder="Enter your contact number"
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all duration-200"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Check-In Date
+                </label>
+                <input
+                  type="date"
+                  name="checkIn"
+                  value={formData.checkIn}
+                  onChange={handleChange}
+                  min={today}
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all duration-200"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Check-Out Date
+                </label>
+                <input
+                  type="date"
+                  name="checkOut"
+                  value={formData.checkOut}
+                  onChange={handleChange}
+                  min={formData.checkIn || today}
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all duration-200"
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setEditingReservation(null)}
+                  className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg"
+                >
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* ================= BOOKING MODAL ================= */}
       {selectedRoom && (
