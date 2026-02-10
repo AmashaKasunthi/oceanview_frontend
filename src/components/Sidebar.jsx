@@ -5,7 +5,8 @@ import {
   Calendar,
   ClipboardList,
   FileText,
-  HelpCircle
+  HelpCircle,
+  User
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -34,26 +35,33 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-2">
 
-        <NavLink to="/rooms" className={linkClass}>
+        <NavLink to="rooms" className={linkClass}>
           <Hotel className="w-5 h-5 group-hover:scale-110 transition-transform" />
           Rooms
         </NavLink>
 
-        <NavLink to="/reservation" className={linkClass}>
+        <NavLink to="reservation" className={linkClass}>
           <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
           Reservation
         </NavLink>
 
-        <NavLink to="/manage" className={linkClass}>
+        <NavLink to="manage" className={linkClass}>
           <ClipboardList className="w-5 h-5 group-hover:scale-110 transition-transform" />
           Manage Reservations
         </NavLink>
 
-        <NavLink to="/reports" className={linkClass}>
+        <NavLink to="staff-manage" className={linkClass}>
+          <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          Manage Staff
+        </NavLink>
+
+        
+        <NavLink to="reports" className={linkClass}>
           <FileText className="w-5 h-5 group-hover:scale-110 transition-transform" />
           Reports
         </NavLink>
 
+        
         <NavLink to="/help" className={linkClass}>
           <HelpCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
           Help

@@ -12,6 +12,7 @@ import CustomerHome from "./pages/CustomerHome";
 import CustomerLogin from "./pages/CustomerLogin";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import Customerviewrooms from "./pages/Customerviewrooms";
+import ManageStaff from "./pages/ManageStaff";
 
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
@@ -45,6 +46,7 @@ function App() {
             <Route path="rooms" element={<Rooms />} />
             <Route path="reservation" element={<Reservation />} />
             <Route path="manage" element={<Manage />} />
+            <Route path="staff-manage" element={<ManageStaff />} />
             <Route path="reports" element={<Reports />} />
             <Route path="help" element={<Help />} />
             <Route path="*" element={<Navigate to="/rooms" />} />
