@@ -208,6 +208,8 @@ export default function CustomerDashboard() {
   const [reservations, setReservations] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showReservations, setShowReservations] = useState(false);
+  const [editingReservation, setEditingReservation] = useState(null);
+
 
   const [formData, setFormData] = useState({
     address: "",
@@ -310,6 +312,42 @@ export default function CustomerDashboard() {
       console.error("Reservation failed", err);
       alert(err.response?.data || "Reservation failed");
     }
+
+    // ================= EDIT RESERVATION =================
+const openEditModal = (reservation) => {
+  setEditingReservation(reservation);
+  setFormData({
+    address: reservation.address || "",
+    contact: reservation.contact || "",
+    checkIn: reservation.checkIn || "",
+    checkOut: reservation.checkOut || "",
+  });
+};
+
+const updateReservation = async (e) => {
+  e.preventDefault();
+
+  try {
+    await axios.put(
+      `http://localhost:8080/api/reservations/${editingReservation.id}`,
+      {
+        ...editingReservation,
+        address: formData.address,
+        contact: formData.contact,
+        checkIn: formData.checkIn,
+        checkOut: formData.checkOut,
+      }
+    );
+
+    alert("Reservation updated successfully!");
+    setEditingReservation(null);
+    fetchReservations();
+  } catch (err) {
+    console.error(err);
+    alert("Update failed");
+  }
+};
+
   };
 
   // ================= LOGOUT =================
@@ -380,6 +418,7 @@ export default function CustomerDashboard() {
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nights</th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                    
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
