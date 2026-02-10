@@ -258,7 +258,7 @@ export default function CustomerHome() {
                   Ultimate luxury with private terrace
                 </p>
                 <Link
-                  to="/customer/rooms"
+                  to="/customer/cusviewrooms"
                   className="text-cyan-300 font-semibold hover:text-cyan-200 transition inline-flex items-center gap-2"
                 >
                   View Details
