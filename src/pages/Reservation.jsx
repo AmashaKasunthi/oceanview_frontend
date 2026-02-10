@@ -296,7 +296,7 @@ export default function Reservation() {
   });
 
   // ===============================
-  // Calculate local today's date in YYYY-MM-DD
+  // Calculate today's date
   // ===============================
   const today = new Date();
   const yyyy = today.getFullYear();
@@ -360,10 +360,10 @@ export default function Reservation() {
       return;
     }
 
-    // Validate check-in is today or future
     const checkInDate = new Date(formData.checkIn);
     const todayDate = new Date();
-    todayDate.setHours(0, 0, 0, 0); // reset to midnight
+    todayDate.setHours(0, 0, 0, 0);
+
     if (checkInDate < todayDate) {
       alert("Check-in date cannot be in the past");
       return;
@@ -404,7 +404,6 @@ export default function Reservation() {
       setBillData(saved);
       setShowBill(true);
 
-      // Reset form
       setFormData({
         guestName: "",
         address: "",
@@ -413,12 +412,11 @@ export default function Reservation() {
         checkIn: "",
         checkOut: ""
       });
+
       setNights(0);
       setTotalAmount(0);
 
-      // Reload rooms
-      const updatedRooms = await fetch("http://localhost:8080/api/rooms")
-        .then(r => r.json());
+      const updatedRooms = await fetch("http://localhost:8080/api/rooms").then(r => r.json());
       setRooms(updatedRooms);
 
     } catch (err) {
@@ -433,37 +431,52 @@ export default function Reservation() {
   // ===============================
   if (showBill && billData) {
     return (
-      <div className="max-w-4xl mx-auto bg-white shadow-xl p-8 mt-10">
-        <h1 className="text-3xl font-bold text-center text-blue-700">
-          OCEAN VIEW RESORT
-        </h1>
+      <div className="min-h-screen bg-blue-50 py-10 px-4">
+        <div className="bill-print-area max-w-3xl mx-auto bg-white shadow-xl p-8">
 
-        <p className="text-center text-sm text-gray-500 mb-6">
-          Reservation Confirmation
-        </p>
+          <h1 className="text-3xl font-bold text-center text-blue-700">
+            🏨 OCEAN VIEW RESORT
+          </h1>
+          <p className="text-gray-600 text-lg">Premium Beach Resort </p>
+              <p className="text-sm text-gray-500 mt-2">
+                123 Beach Road, Galle, Sri Lanka | Tel: +94 11 234 5678
+              </p>
 
-        <p><b>Booking ID:</b> {billData.id}</p>
-        <p><b>Guest:</b> {billData.guestName}</p>
-        <p><b>Contact:</b> {billData.contact}</p>
-        <p><b>Address:</b> {billData.address}</p>
+          <p className="text-center text-sm text-gray-500 mb-6">
+            Reservation 
+          </p>
 
-        <hr className="my-4" />
+          <div className="space-y-2">
+            <p><b>Booking ID:</b> {billData.id}</p>
+            <p><b>Guest:</b> {billData.guestName}</p>
+            <p><b>Contact:</b> {billData.contact}</p>
+            <p><b>Address:</b> {billData.address}</p>
+          </div>
 
-        <p><b>Room Type:</b> {billData.roomType || billData.room?.roomType}</p>
-        <p><b>Check-in:</b> {billData.checkIn}</p>
-        <p><b>Check-out:</b> {billData.checkOut}</p>
-        <p><b>Nights:</b> {billData.nights}</p>
+          <hr className="my-4" />
 
-        <h2 className="text-xl font-bold mt-4">
-          TOTAL: LKR {billData.totalAmount}
-        </h2>
+          <div className="space-y-2">
+            <p><b>Room Type:</b> {billData.roomType || billData.room?.roomType}</p>
+            <p><b>Check-in:</b> {billData.checkIn}</p>
+            <p><b>Check-out:</b> {billData.checkOut}</p>
+            <p><b>Nights:</b> {billData.nights}</p>
+          </div>
 
-        <div className="mt-6 flex gap-4 print:hidden">
+          <h2 className="text-xl font-bold mt-4 text-blue-700">
+            TOTAL: LKR {billData.totalAmount?.toLocaleString()}
+          </h2>
+          <div className="text-center text-sm text-gray-500 mb-6">
+              <p>Thank you for choosing Ocean View Resort!</p>
+            </div>
+
+        </div>
+
+        <div className="mt-6 flex gap-4 justify-center print:hidden">
           <button
             onClick={handlePrint}
             className="bg-blue-600 text-white px-6 py-2 rounded"
           >
-            Print Bill
+            🖨️ Print Bill
           </button>
 
           <button
@@ -487,78 +500,43 @@ export default function Reservation() {
       </h2>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-        <input
-          type="text"
-          name="guestName"
-          placeholder="Guest Name"
-          value={formData.guestName}
-          onChange={handleChange}
-          className="border p-3 col-span-2"
-        />
+        <input type="text" name="guestName" placeholder="Guest Name"
+          value={formData.guestName} onChange={handleChange}
+          className="border p-3 col-span-2" />
 
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={formData.address}
-          onChange={handleChange}
-          className="border p-3 col-span-2"
-        />
+        <input type="text" name="address" placeholder="Address"
+          value={formData.address} onChange={handleChange}
+          className="border p-3 col-span-2" />
 
-        <input
-          type="text"
-          name="contact"
-          placeholder="Contact Number"
-          value={formData.contact}
-          onChange={handleChange}
-          className="border p-3 col-span-2"
-        />
+        <input type="text" name="contact" placeholder="Contact Number"
+          value={formData.contact} onChange={handleChange}
+          className="border p-3 col-span-2" />
 
-        <select
-          name="roomId"
-          value={formData.roomId}
-          onChange={handleChange}
-          className="border p-3 col-span-2"
-        >
+        <select name="roomId" value={formData.roomId} onChange={handleChange}
+          className="border p-3 col-span-2">
           <option value="">Select Room</option>
           {rooms.map(room => (
-            <option
-              key={room.id}
-              value={room.id}
-              disabled={room.availableRooms <= 0}
-            >
+            <option key={room.id} value={room.id} disabled={room.availableRooms <= 0}>
               {room.roomType} — LKR {room.price}
             </option>
           ))}
         </select>
 
-        <input
-          type="date"
-          name="checkIn"
-          min={minCheckIn}
-          value={formData.checkIn}
-          onChange={handleChange}
-          className="border p-3"
-        />
+        <input type="date" name="checkIn" min={minCheckIn}
+          value={formData.checkIn} onChange={handleChange}
+          className="border p-3" />
 
-        <input
-          type="date"
-          name="checkOut"
-          min={formData.checkIn || minCheckIn}
-          value={formData.checkOut}
-          onChange={handleChange}
-          className="border p-3"
-        />
+        <input type="date" name="checkOut" min={formData.checkIn || minCheckIn}
+          value={formData.checkOut} onChange={handleChange}
+          className="border p-3" />
 
         <div className="col-span-2 bg-blue-50 p-4 rounded">
           <p>Nights: <b>{nights}</b></p>
           <p>Total (estimate): <b>LKR {totalAmount}</b></p>
         </div>
 
-        <button
-          type="submit"
-          className="col-span-2 bg-blue-600 text-white py-3 rounded"
-        >
+        <button type="submit"
+          className="col-span-2 bg-blue-600 text-white py-3 rounded">
           Confirm Reservation
         </button>
       </form>

@@ -336,66 +336,93 @@ export default function ManageReservation() {
     r.roomType.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // ===================== BILL VIEW =====================
+   // ===================== BILL VIEW =====================
   if (showBill && edit) {
     return (
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-12 px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-10">
-          <div className="text-center border-b-4 border-blue-600 pb-6 mb-8">
-            <h1 className="text-4xl font-bold text-blue-700 mb-2">🏨 OCEAN VIEW RESORT</h1>
-            <p className="text-gray-600 text-lg">Premium Beach Resort & Spa</p>
-            <p className="text-sm text-gray-500 mt-2">123 Beach Road, Colombo, Sri Lanka | Tel: +94 11 234 5678</p>
-          </div>
+        <div className="bill-print-area">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-10">
 
-          <div className="bg-blue-50 rounded-lg p-6 mb-6">
-            <h2 className="text-2xl font-bold text-blue-800 mb-4">📄 Updated Reservation Bill</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-gray-600">Reservation ID</p>
-                <p className="text-lg font-semibold text-gray-800">#{edit.id}</p>
+            <div className="text-center border-b-4 border-blue-600 pb-6 mb-8">
+              <h1 className="text-4xl font-bold text-blue-700 mb-2">🏨 OCEAN VIEW RESORT</h1>
+              <p className="text-gray-600 text-lg">Premium Beach Resort </p>
+              <p className="text-sm text-gray-500 mt-2">
+                123 Beach Road, Galle, Sri Lanka | Tel: +94 11 234 5678
+              </p>
+            </div>
+
+            <div className="bg-blue-50 rounded-lg p-6 mb-6">
+              <h2 className="text-2xl font-bold text-blue-800 mb-4">📄 Bill</h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Reservation ID</p>
+                  <p className="text-lg font-semibold text-gray-800">#{edit.id}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Issue Date</p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {new Date().toLocaleDateString()}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Issue Date</p>
-                <p className="text-lg font-semibold text-gray-800">{new Date().toLocaleDateString()}</p>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">👤 Guest Information</h3>
+              <div className="bg-gray-50 rounded-lg p-5 space-y-2">
+                <div className="flex justify-between">
+                  <span>Guest Name:</span><span className="font-semibold">{edit.guestName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Contact:</span><span className="font-semibold">{edit.contact}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Address:</span><span className="font-semibold">{edit.address}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center"><span className="mr-2">👤</span> Guest Information</h3>
-            <div className="bg-gray-50 rounded-lg p-5 space-y-2">
-              <div className="flex justify-between"><span className="text-gray-600">Guest Name:</span><span className="font-semibold">{edit.guestName}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Contact:</span><span className="font-semibold">{edit.contact}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Address:</span><span className="font-semibold">{edit.address}</span></div>
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">🛏️ Reservation Details</h3>
+              <div className="bg-gray-50 rounded-lg p-5 space-y-2">
+                <div className="flex justify-between">
+                  <span>Room Type:</span><span className="font-semibold">{edit.roomType}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Check-in:</span><span className="font-semibold">{edit.checkIn}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Check-out:</span><span className="font-semibold">{edit.checkOut}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Nights:</span><span className="font-semibold">{edit.nights}</span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center"><span className="mr-2">🛏️</span> Reservation Details</h3>
-            <div className="bg-gray-50 rounded-lg p-5 space-y-2">
-              <div className="flex justify-between"><span className="text-gray-600">Room Type:</span><span className="font-semibold">{edit.roomType}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Check-in Date:</span><span className="font-semibold">{edit.checkIn}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Check-out Date:</span><span className="font-semibold">{edit.checkOut}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Number of Nights:</span><span className="font-semibold">{edit.nights}</span></div>
+            <div className="bg-linear-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white mb-8">
+              <div className="flex justify-between items-center">
+                <span className="text-xl font-semibold">Total Amount:</span>
+                <span className="text-3xl font-bold">
+                  LKR {edit.totalAmount?.toLocaleString()}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-linear-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white mb-8">
-            <div className="flex justify-between items-center">
-              <span className="text-xl font-semibold">Total Amount:</span>
-              <span className="text-3xl font-bold">LKR {edit.totalAmount?.toLocaleString()}</span>
+            <div className="text-center text-sm text-gray-500 mb-6">
+              <p>Thank you for choosing Ocean View Resort!</p>
             </div>
-          </div>
 
-          <div className="text-center text-sm text-gray-500 mb-6">
-            <p>Thank you for choosing Ocean View Resort!</p>
-            <p>We look forward to serving you.</p>
           </div>
+        </div>
 
-          <div className="flex gap-4 print:hidden">
-            <button onClick={printBill} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg">🖨️ Print Bill</button>
-            <button onClick={() => { setShowBill(false); setEdit(null); }} className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg">← Back to Reservations</button>
-          </div>
+        <div className="flex gap-4 print:hidden">
+          <button onClick={printBill} className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg">
+            🖨️ Print Bill
+          </button>
+          <button onClick={() => { setShowBill(false); setEdit(null); }} className="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg">
+            ← Back
+          </button>
         </div>
       </div>
     );
