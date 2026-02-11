@@ -220,7 +220,7 @@ export default function CustomerDashboard() {
 
   const customer = JSON.parse(localStorage.getItem("customer"));
   
-  // ✅ Get today's date in YYYY-MM-DD format to prevent past date selection
+  //  Get today's date in YYYY-MM-DD format to prevent past date selection
   const today = new Date().toISOString().split('T')[0];
 
   // ================= SAFETY =================
