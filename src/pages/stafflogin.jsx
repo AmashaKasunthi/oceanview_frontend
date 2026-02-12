@@ -27,7 +27,7 @@ export default function StaffLogin({ setLogin }) {
         localStorage.setItem("staffUsername", username);
         alert("Login Successful");
         setLogin(true);
-        navigate("/staff");   // ⭐ redirect
+        navigate("/staff");   //  redirect
       } else {
         alert("Invalid credentials");
       }
