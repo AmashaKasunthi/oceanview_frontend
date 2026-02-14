@@ -34,9 +34,9 @@ function App() {
         <Route path="/customer/cusdashboard" element={<CustomerDashboard />} />
         <Route path="/customer/cusviewrooms" element={<Customerviewrooms />} />
 
-        {/* ================================================= */}
+       
         {/* ================= STAFF ========================= */}
-        {/* ================================================= */}
+       
 
         {/* ===== STAFF SIDE ===== */}
 {!isStaffLoggedIn ? (
