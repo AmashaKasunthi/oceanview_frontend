@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import axios from "axios";
+import { User, Lock } from "lucide-react";
 
 export default function Login({ setLogin }) {
   const [username, setUsername] = useState("");
@@ -21,9 +21,9 @@ export default function Login({ setLogin }) {
 
       // Handle login - backend returns JWT token directly
       if (res.data && res.data !== "FAILED") {
-        // ✅ Store JWT token
+        //  Store JWT token
         localStorage.setItem("token", res.data);
-        // ✅ Store admin username
+        //  Store admin username
         localStorage.setItem("adminUsername", username);
         alert("Login Successful");
         setLogin(true); // Navigate to admin panel
@@ -56,18 +56,24 @@ export default function Login({ setLogin }) {
         </div>
 
         {/* Form */}
-        <input
-          className="w-full p-3 border mb-3 rounded"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <div className="relative mb-3">
+          <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <input
+            className="w-full p-3 pl-9 border rounded"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="password"
-          className="w-full p-3 border mb-3 rounded"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="relative mb-3">
+          <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <input
+            type="password"
+            className="w-full p-3 pl-9 border rounded"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
         <button
           onClick={submit}
@@ -81,5 +87,3 @@ export default function Login({ setLogin }) {
     </div>
   );
 }
-
-
