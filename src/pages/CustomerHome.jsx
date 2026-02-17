@@ -436,8 +436,8 @@ export default function CustomerHome() {
               <h4 className="text-white font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm">
                 <li>123 Ocean Drive</li>
-                <li>87/B  Colombo Road ,Galle,SriLanka</li>
-                <li>Phone: (+94) 91-234-3567</li>
+                <li>123 Beach Road, Galle, Sri Lanka</li>
+                <li>Phone: (+94) 11 234 5678</li>
                 <li>Email: info@oceanview.com</li>
               </ul>
             </div>
