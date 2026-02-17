@@ -52,7 +52,7 @@ export default function Login({ setLogin }) {
             <img src="/oceanview.logo.png" className="p-2" />
           </div>
           <h2 className="text-xl font-bold">Ocean View Resort</h2>
-          <p className="text-xl font-bold text-blue-500">Login</p>
+          <p className="text-xl font-bold text-blue-900"> Admin Login</p>
         </div>
 
         {/* Form */}
