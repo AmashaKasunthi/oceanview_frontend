@@ -16,10 +16,15 @@ export default function Dashboard({ logout }) {
     }
   }, []);
 
+  
   const handleLogout = () => {
-  localStorage.removeItem("adminUsername");
-+ logout();  //updates isAdminLoggedIn = false
-  navigate("/admin-login", { replace: true });
+  const confirmLogout = window.confirm("Are you sure you want to logout?");
+
+  if (confirmLogout) {
+    localStorage.removeItem("adminUsername");
+    logout();  //updates isAdminLoggedIn = false
+    navigate("/admin-login", { replace: true });
+  }
 };
 
 
