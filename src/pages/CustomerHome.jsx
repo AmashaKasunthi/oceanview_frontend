@@ -436,8 +436,8 @@ export default function CustomerHome() {
               <h4 className="text-white font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm">
                 <li>123 Ocean Drive</li>
-                <li>Paradise Bay, PB 12345</li>
-                <li>Phone: (555) 123-4567</li>
+                <li>87/B  Colombo Road ,Galle,SriLanka</li>
+                <li>Phone: (+94) 91-234-3567</li>
                 <li>Email: info@oceanview.com</li>
               </ul>
             </div>
