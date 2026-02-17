@@ -16,11 +16,16 @@ export default function StaffDashboard({ logout }) {
     }
   }, []);
 
-  const handleLogout = () => {
+   const handleLogout = () => {
+  const confirmLogout = window.confirm("Are you sure you want to logout?");
+
+  if (confirmLogout) {
     localStorage.removeItem("staffUsername");
-    logout(); // update isStaffLoggedIn = false
+    logout();  
     navigate("/staff-login", { replace: true });
-  };
+  }
+};
+  
 
   return (
     <div className="flex min-h-screen bg-gray-100">
