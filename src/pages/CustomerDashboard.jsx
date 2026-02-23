@@ -149,6 +149,23 @@ export default function CustomerDashboard() {
       alert("Update failed");
     }
   };
+  // ================= DELETE =================
+  const handleDeleteReservation = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this reservation?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:8080/api/reservations/${id}`);
+      alert("Reservation deleted!");
+      fetchReservations();
+      fetchRooms();
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed");
+    }
+  };
 
   // ================= LOGOUT =================
   const handleLogout = () => {
@@ -261,6 +278,12 @@ export default function CustomerDashboard() {
                             className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
                           >
                             Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteReservation(r.id)}
+                             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                          >
+                             Delete
                           </button>
                         </td>
                       </tr>
