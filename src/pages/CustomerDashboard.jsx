@@ -149,7 +149,7 @@ export default function CustomerDashboard() {
       alert("Update failed");
     }
   };
-  // ================= DELETE =================
+  // ================= DELETE =============
   const handleDeleteReservation = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this reservation?"
