@@ -11,20 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
+    
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # 3. Install dependencies
       - name: Install Dependencies
         run: npm install
 
-      # 4. Build frontend
       - name: Build Frontend
         run: npm run build
