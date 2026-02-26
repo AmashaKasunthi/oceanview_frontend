@@ -99,7 +99,7 @@ export default function ManageReservation() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Reservation ID</p>
-                  <p className="text-lg font-semibold text-gray-800">#{edit.id}</p>
+                  <p className="text-lg font-semibold text-gray-800">{edit.id}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Issue Date</p>
@@ -174,7 +174,7 @@ export default function ManageReservation() {
   // ===================== MAIN VIEW =====================
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -227,7 +227,7 @@ export default function ManageReservation() {
                   ) : (
                     filteredReservations.map((r, index) => (
                       <tr key={r.id} className={`hover:bg-blue-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                        <td className="px-6 py-4 font-semibold text-blue-600">#{r.id}</td>
+                        <td className="px-6 py-4 font-semibold text-blue-600">{r.id}</td>
                         <td className="px-6 py-4 font-medium">{r.guestName}</td>
                         <td className="px-6 py-4"><span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">{r.roomType}</span></td>
                         <td className="px-6 py-4 text-gray-600">{r.checkIn}</td>
@@ -244,6 +244,14 @@ export default function ManageReservation() {
                           )}
                           <button onClick={() => setEdit(r)} className="bg-blue-500 text-white px-3 py-1 rounded">✏️ Edit</button>
                           <button onClick={() => cancelReservation(r.id)} className="bg-gray-500 text-white px-3 py-1 rounded">❌ Cancel</button>
+                          {/* PRINT BUTTON */}
+                       <button
+                            onClick={() => {
+                                     setEdit(r);
+                                     setShowBill(true);
+                                    }}
+                                       className="bg-purple-600 text-white px-3 py-1 rounded" >
+                                       🖨 Print </button>
                         </td>
                       </tr>
                     ))
