@@ -12,6 +12,7 @@ import CustomerHome from "./pages/CustomerHome";
 import CustomerLogin from "./pages/CustomerLogin";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import Customerviewrooms from "./pages/Customerviewrooms";
+
 import ManageStaff from "./pages/ManageStaff";
 import StaffLogin from "./pages/stafflogin";
 import StaffDashboard from "./pages/StaffDashboard";
@@ -33,6 +34,8 @@ function App() {
         <Route path="/customer/login" element={<CustomerLogin />} />
         <Route path="/customer/cusdashboard" element={<CustomerDashboard />} />
         <Route path="/customer/cusviewrooms" element={<Customerviewrooms />} />
+        
+        
 
        
         {/* ================= STAFF ========================= */}

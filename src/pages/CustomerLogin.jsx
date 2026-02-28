@@ -182,6 +182,7 @@ export default function CustomerLogin() {
                     {errors.address && <p className="text-red-600 text-sm mt-1">{errors.address}</p>}
                   </div>
                 </>
+                
               )}
 
               <div>
@@ -206,6 +207,7 @@ export default function CustomerLogin() {
                   className={inputClass}
                 />
                 {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password}</p>}
+                
               </div>
 
               <button
